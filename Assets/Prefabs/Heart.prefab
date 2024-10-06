@@ -10,8 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 32684619442602811}
   - component: {fileID: 912032566825590529}
-  - component: {fileID: -7623170226647873132}
+  - component: {fileID: 2075338991181735442}
   - component: {fileID: -7406397954643864366}
+  - component: {fileID: 7922155715591842948}
   m_Layer: 0
   m_Name: Heart
   m_TagString: Heart
@@ -86,22 +87,33 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &-7623170226647873132
-MonoBehaviour:
+--- !u!50 &2075338991181735442
+Rigidbody2D:
+  serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 707009960210387436}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b4bc127ee5c440a2a25ddbfdfdd952a3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  heartPrefab: {fileID: 707009960210387436}
-  spawnRange: 10
-  spawnInterval: 10
-  heartValue: 50
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!58 &-7406397954643864366
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -137,3 +149,16 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 1.27
+--- !u!114 &7922155715591842948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 707009960210387436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4bc127ee5c440a2a25ddbfdfdd952a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  heartValue: 50

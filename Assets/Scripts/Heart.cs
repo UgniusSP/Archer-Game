@@ -1,22 +1,21 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Heart : MonoBehaviour
 {
     
-    [SerializeField] private GameObject heartPrefab;
-    [SerializeField] private float spawnRange;
-    [SerializeField] private float spawnInterval;
     [SerializeField] private float heartValue;
-    private Transform _player;
+    
+    private float _timeUntilSpawn;
     
     void Start()
     {
-        _player = GameObject.FindGameObjectWithTag("Player").transform;
+        
+        Destroy(gameObject, 5f);
     }
-    
-    //todo spawn heart at random location
     
     public float GetHeartValue()
     {
