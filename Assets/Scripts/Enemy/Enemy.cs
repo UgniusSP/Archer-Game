@@ -1,6 +1,7 @@
 using DefaultNamespace;
 using UnityEngine;
 using UnityEngine.UI;
+using Utils;
 
 namespace Enemy
 {

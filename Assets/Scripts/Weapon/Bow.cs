@@ -1,4 +1,3 @@
-using System.Diagnostics.CodeAnalysis;
 using DefaultNamespace;
 using UnityEngine;
 using Slider = UnityEngine.UI.Slider;

@@ -1,4 +1,6 @@
+using System;
 using DefaultNamespace;
+using Health;
 using UnityEngine;
 using Weapon;
 using Slider = UnityEngine.UI.Slider;
@@ -32,6 +34,15 @@ namespace Player
             healthBar.transform.position = Camera.main.WorldToScreenPoint(transform.position + sliderOffset);
         
             Move();
+        }
+
+        public void OnCollisionEnter2D(Collision2D other)
+        {
+            if(other.gameObject.CompareTag("Heart"))
+            {
+                Heart heart = other.gameObject.GetComponent<Heart>();
+                heart.Die();
+            }
         }
 
         public void TakeDamage(float damage)

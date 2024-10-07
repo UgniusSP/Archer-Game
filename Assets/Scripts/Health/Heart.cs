@@ -1,7 +1,6 @@
 using DefaultNamespace;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
-using UnityEngine.Serialization;
+using Utils;
 
 namespace Health
 {
@@ -12,12 +11,10 @@ namespace Health
         [SerializeField] private float moveSpeed;
     
         private float _timeUntilSpawn;
-        private Transform _player;
         private Rigidbody2D _rigidbody2D;
     
         void Start()
         {
-            _player = GameObject.FindGameObjectWithTag("Player").transform;
             
             _rigidbody2D = GetComponent<Rigidbody2D>();
             _rigidbody2D.isKinematic = true;

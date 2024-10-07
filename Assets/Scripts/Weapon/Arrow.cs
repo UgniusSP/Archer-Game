@@ -9,6 +9,7 @@ namespace Weapon
     
         private Rigidbody2D _rigidbody2D;
         private float _damage;
+        private Collider2D _collider;
     
         void Start()
         {
@@ -19,8 +20,11 @@ namespace Weapon
 
         void Update()
         {
-            float angle = Mathf.Atan2(_rigidbody2D.velocity.y, _rigidbody2D.velocity.x) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+            if (_rigidbody2D.velocity != Vector2.zero)
+            {
+                float angle = Mathf.Atan2(_rigidbody2D.velocity.y, _rigidbody2D.velocity.x) * Mathf.Rad2Deg;
+                transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+            }
         }
     
         public void OnCollisionEnter2D(Collision2D other)
@@ -34,11 +38,17 @@ namespace Weapon
             {
                 other.gameObject.GetComponent<Enemy.Enemy>().TakeDamage(_damage);
                 Destroy(gameObject);
+                
             }
             else if (other.gameObject.CompareTag("Heart"))
             {
                 other.gameObject.GetComponent<Heart>().Die();
                 Destroy(gameObject);
+                
+            } else if (other.gameObject.CompareTag("Wall"))
+            {
+                _rigidbody2D.velocity = Vector2.zero;
+                _rigidbody2D.isKinematic = true;
             }
             
         }
