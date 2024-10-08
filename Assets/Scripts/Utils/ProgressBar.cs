@@ -8,10 +8,11 @@ namespace Utils
         public static ProgressBar Instance;
         
         [SerializeField] private Slider progressBar;
+        [SerializeField] private int maxPoints;
         
         private void Awake()
         {
-            if (Instance == null)
+            if (Instance is null)
             {
                 Instance = this;
                 DontDestroyOnLoad(gameObject);
@@ -24,7 +25,7 @@ namespace Utils
         
         public void Start()
         {
-            progressBar.maxValue = 10;
+            progressBar.maxValue = maxPoints;
             progressBar.value = 0;
         }
         
@@ -32,6 +33,12 @@ namespace Utils
         {
             progressBar.value = points;
         }
+
+        public int GetMaxPoints()
+        {
+            return maxPoints;
+        }
+        
         
     }
 }

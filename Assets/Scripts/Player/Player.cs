@@ -2,6 +2,7 @@ using System;
 using DefaultNamespace;
 using Health;
 using UnityEngine;
+using Utils;
 using Weapon;
 using Slider = UnityEngine.UI.Slider;
 
@@ -68,7 +69,7 @@ namespace Player
 
         public void Die()
         {
-            Destroy(gameObject);
+            GameManager.Instance.GameOver();
         }
     
         public void FixedUpdate()

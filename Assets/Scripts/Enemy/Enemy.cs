@@ -82,7 +82,6 @@ namespace Enemy
             GameManager.Instance.UpdatePoints(1);
             Destroy(gameObject);
         }
-
     
     }
 }

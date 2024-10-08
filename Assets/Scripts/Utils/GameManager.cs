@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace Utils
@@ -32,6 +33,22 @@ namespace Utils
             
             ProgressBar.Instance.UpdateProgressBar(_points);
             
+        }
+        
+        public void StartGame()
+        {
+            _points = 0;
+            SceneManager.LoadScene("Level1");
+        }
+
+        public void GameOver()
+        {
+            SceneManager.LoadScene("GameOver");
+        }
+        
+        public int GetPoints()
+        {
+            return _points;
         }
     }
 }

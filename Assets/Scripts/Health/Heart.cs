@@ -8,7 +8,6 @@ namespace Health
     {
     
         [SerializeField] private float heartValue;
-        [SerializeField] private float moveSpeed;
     
         private float _timeUntilSpawn;
         private Rigidbody2D _rigidbody2D;
@@ -24,7 +23,7 @@ namespace Health
         
         public void Die()
         {
-            GameManager.Instance.UpdatePoints(1);
+            
             Player.Player player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player.Player>();
             
             player.AddHealth(heartValue);
