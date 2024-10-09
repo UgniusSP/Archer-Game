@@ -1,38 +1,28 @@
 using DefaultNamespace;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Utils;
 
-namespace Enemy
+namespace Enemies
 {
-    public class Enemy : MonoBehaviour, IMovable, IDamagable, IAttackable, IDieable
+    public class Boss : Enemy
     {
-        [SerializeField] private float moveSpeed;
-        [SerializeField] private float maxHealth;
-        [SerializeField] private float attackSpeed;
-        [SerializeField] private float attackDamage;
-        [SerializeField] private Slider healthBar;
-        [SerializeField] private Vector3 sliderOffset;
-        [SerializeField] private CircleCollider2D circleCollider2D;
-
         private float _canAttack;
         private Transform _player;
-        private float _health;
         private Rigidbody2D _rigidbody2D;
-    
 
         public void Start()
         {
-            _health = maxHealth;
+            Health = maxHealth;
             healthBar.maxValue = maxHealth;
-            healthBar.value = _health;
+            healthBar.value = Health;
             
             _player = GameObject.FindGameObjectWithTag("Player").transform;
             
             _rigidbody2D = GetComponent<Rigidbody2D>();
             _rigidbody2D.isKinematic = true;
-        
-            sliderOffset = new Vector3(0.04f, 1.45f, 0);
+            
         }
 
         public void Update()
@@ -46,13 +36,13 @@ namespace Enemy
             Attack(other);
         }
     
-        public void Attack(Collision2D other)
+        public override void Attack(Collision2D other)
         {
             if (other.gameObject.CompareTag("Player"))
             {
                 if (attackSpeed <= _canAttack)
                 {
-                    other.gameObject.GetComponent<Player.Player>().TakeDamage(attackDamage);
+                    other.gameObject.GetComponent<Player.Player>().TakeDamage(damage: attackDamage);
                     _canAttack = 0f;
                 }
                 else
@@ -62,25 +52,15 @@ namespace Enemy
             }
         }
     
-        public void Move()
+        public override void Move()
         {
             transform.position = Vector2.MoveTowards(transform.position, _player.position, moveSpeed * Time.deltaTime);
         }
-    
-        public void TakeDamage(float damage)
+
+        public override void Die()
         {
-            _health -= damage;
-            healthBar.value = _health;
-            if (_health <= 0)
-            {
-                Die();
-            }
-        }
-    
-        public void Die()
-        {
-            GameManager.Instance.UpdatePoints(1);
             Destroy(gameObject);
+            GameManager.Instance.LevelComplete();
         }
     
     }

@@ -42,6 +42,13 @@ namespace Utils
             
             SceneManager.LoadScene("GameOver");
         }
+
+        public void LevelComplete()
+        {
+            _points = 0;
+            
+            SceneManager.LoadScene("LevelCompleted");
+        }
         
         public int GetPoints()
         {

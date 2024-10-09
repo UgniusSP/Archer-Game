@@ -34,23 +34,24 @@ namespace Weapon
         
         public void Attack(Collision2D other)
         {
-            if (other.gameObject.CompareTag("Enemy"))
+
+            switch (other.gameObject.tag)
             {
-                other.gameObject.GetComponent<Enemy.Enemy>().TakeDamage(_damage);
-                Destroy(gameObject);
+                case "Enemy":
+                    other.gameObject.GetComponent<Enemy>().TakeDamage(_damage);
+                    Destroy(gameObject);
+                    break;
                 
-            }
-            else if (other.gameObject.CompareTag("Heart"))
-            {
+                case "Heart":
+                    other.gameObject.GetComponent<Heart>().Die();
+                    Destroy(gameObject);
+                    break;
                 
-                other.gameObject.GetComponent<Heart>().Die();
-                Destroy(gameObject);
-                
-            } else if (other.gameObject.CompareTag("Wall"))
-            {
-                _rigidbody2D.constraints = RigidbodyConstraints2D.FreezeRotation;
-                _rigidbody2D.velocity = Vector2.zero;
-                _rigidbody2D.isKinematic = true;
+                case "Wall":
+                    _rigidbody2D.constraints = RigidbodyConstraints2D.FreezeRotation;
+                    _rigidbody2D.velocity = Vector2.zero;
+                    _rigidbody2D.isKinematic = true;
+                    break;
             }
             
         }

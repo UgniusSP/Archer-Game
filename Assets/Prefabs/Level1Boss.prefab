@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 7978024671148943935}
   - component: {fileID: 1509094296779650392}
   - component: {fileID: 2838162819101236106}
-  - component: {fileID: 7540362127099798430}
   - component: {fileID: 5853213940239107831}
+  - component: {fileID: 3859637010688824207}
   m_Layer: 0
   m_Name: Level1Boss
   m_TagString: Enemy
@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 38897555907760523}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.6647944, y: -4.461591, z: 0}
+  m_LocalPosition: {x: 9, y: -1, z: 0}
   m_LocalScale: {x: 4, y: 4, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -123,25 +123,6 @@ CircleCollider2D:
   m_Offset: {x: -0.06, y: 0}
   serializedVersion: 2
   m_Radius: 0.94
---- !u!114 &7540362127099798430
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 38897555907760523}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 971465eefd0f7b74e911342687ea95d8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 2
-  maxHealth: 500
-  attackSpeed: 0.5
-  attackDamage: 35
-  healthBar: {fileID: 6999742458346924915}
-  sliderOffset: {x: 0, y: 0, z: 0}
-  circleCollider2D: {fileID: 2838162819101236106}
 --- !u!50 &5853213940239107831
 Rigidbody2D:
   serializedVersion: 4
@@ -169,6 +150,25 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &3859637010688824207
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 38897555907760523}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14e9202129ee83d45bebc86ff8b312e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 10
+  moveSpeed: 2.5
+  healthBar: {fileID: 6999742458346924915}
+  sliderOffset: {x: 0, y: 0, z: 0}
+  attackSpeed: 1
+  attackDamage: 50
+  circleCollider2D: {fileID: 2838162819101236106}
 --- !u!1 &3636737908758566435
 GameObject:
   m_ObjectHideFlags: 0
@@ -492,7 +492,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 24.400024, y: 31.400024}
+  m_AnchoredPosition: {x: 23.699951, y: 19.600006}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &6999742458346924915
