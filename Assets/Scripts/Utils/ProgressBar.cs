@@ -12,7 +12,7 @@ namespace Utils
         
         private void Awake()
         {
-            if (Instance is null)
+            if (Instance == null)
             {
                 Instance = this;
                 DontDestroyOnLoad(gameObject);

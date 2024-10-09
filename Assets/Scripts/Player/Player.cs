@@ -2,6 +2,7 @@ using System;
 using DefaultNamespace;
 using Health;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Utils;
 using Weapon;
 using Slider = UnityEngine.UI.Slider;
@@ -12,7 +13,9 @@ namespace Player
     {
         [SerializeField] private float maxHealth = 100f;
         [SerializeField] private Slider healthBar;
-        [SerializeField] private Vector3 sliderOffset;
+        [SerializeField] private Slider bowPowerSlider;
+        [SerializeField] private Vector3 healthSliderOffset;
+        [SerializeField] private Vector3 bowSliderOffset;
         [SerializeField] private float moveSpeed;
         [SerializeField] private new Rigidbody2D rigidbody2D;
 
@@ -26,13 +29,16 @@ namespace Player
             healthBar.value = _health;
         
             rigidbody2D.constraints = RigidbodyConstraints2D.FreezeRotation;
-        
-            sliderOffset = new Vector3(0.04f, 1.45f, 0);
+            
         }
     
         public void Update()
         {
-            healthBar.transform.position = Camera.main.WorldToScreenPoint(transform.position + sliderOffset);
+            Vector3 screenPositionForHealthBar = Camera.main.WorldToScreenPoint(transform.position + healthSliderOffset);
+            healthBar.transform.position = screenPositionForHealthBar;
+            
+            Vector3 screenPositionForChargeBar = Camera.main.WorldToScreenPoint(transform.position + bowSliderOffset);
+            bowPowerSlider.transform.position = screenPositionForChargeBar;
         
             Move();
         }

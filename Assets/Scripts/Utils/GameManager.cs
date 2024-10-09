@@ -19,6 +19,7 @@ namespace Utils
             {
                 Instance = this;
                 DontDestroyOnLoad(gameObject);
+                
             }
             else
             {
@@ -34,15 +35,11 @@ namespace Utils
             ProgressBar.Instance.UpdateProgressBar(_points);
             
         }
-        
-        public void StartGame()
-        {
-            _points = 0;
-            SceneManager.LoadScene("Level1");
-        }
 
         public void GameOver()
         {
+            _points = 0;
+            
             SceneManager.LoadScene("GameOver");
         }
         

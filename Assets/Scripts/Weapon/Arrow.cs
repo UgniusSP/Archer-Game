@@ -42,11 +42,13 @@ namespace Weapon
             }
             else if (other.gameObject.CompareTag("Heart"))
             {
+                
                 other.gameObject.GetComponent<Heart>().Die();
                 Destroy(gameObject);
                 
             } else if (other.gameObject.CompareTag("Wall"))
             {
+                _rigidbody2D.constraints = RigidbodyConstraints2D.FreezeRotation;
                 _rigidbody2D.velocity = Vector2.zero;
                 _rigidbody2D.isKinematic = true;
             }

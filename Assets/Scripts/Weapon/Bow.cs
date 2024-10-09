@@ -25,15 +25,12 @@ namespace Weapon
         {
             bowPowerSlider.value = 0;
             bowPowerSlider.maxValue = MaxCharge;
-        
-            sliderOffset = new Vector3(-0.83f, 4.1f, 0);
+            
         }
 
         public void Update()
         {
-        
-            bowPowerSlider.transform.position = Camera.main.WorldToScreenPoint(transform.position + sliderOffset);
-        
+            
             if (Input.GetMouseButtonDown(0))
             {
                 _isCharging = true;
