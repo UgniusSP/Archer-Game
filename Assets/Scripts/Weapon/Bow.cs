@@ -59,13 +59,15 @@ namespace Weapon
 
         private void Shoot()
         {
-            GameObject arrow = Instantiate(arrowPrefab, shotPoint.position, shotPoint.rotation);
-            Rigidbody2D arrowRigidbody = arrow.GetComponent<Rigidbody2D>();
+            GameObject arrowObject = Instantiate(arrowPrefab, shotPoint.position, shotPoint.rotation);
+            Arrow arrow = arrowObject.GetComponent<Arrow>();
+            Rigidbody2D arrowRigidbody = arrowObject.GetComponent<Rigidbody2D>();
             arrowRigidbody.velocity = shotPoint.right * _currentCharge;
         
-            // Calculate damage based on charge
-            float damage = CalculateDamage(_currentCharge);
-            arrow.GetComponent<Arrow>().SetDamage(damage);
+            // Deconstruct arrow and set damage
+            var (arrowRigidbody2D, damage) = arrow;
+            damage = CalculateDamage(_currentCharge);
+            arrow.SetDamage(damage);
 
             _isCharging = false;
             arrowGfx.enabled = false;

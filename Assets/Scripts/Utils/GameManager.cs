@@ -5,13 +5,18 @@ using UnityEngine.UI;
 
 namespace Utils
 {
-    public class GameManager : MonoBehaviour
+    public sealed class GameManager : MonoBehaviour
     {
         public static GameManager Instance;
 
         [SerializeField] private TextMeshProUGUI score;
         private static int _points;
     
+        static GameManager()
+        {
+            _points = 0;
+        }
+        
         private void Awake()
         {
         
@@ -19,7 +24,6 @@ namespace Utils
             {
                 Instance = this;
                 DontDestroyOnLoad(gameObject);
-                
             }
             else
             {

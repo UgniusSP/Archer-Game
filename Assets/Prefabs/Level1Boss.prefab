@@ -162,7 +162,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14e9202129ee83d45bebc86ff8b312e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 10
+  maxHealth: 400
   moveSpeed: 2.5
   healthBar: {fileID: 6999742458346924915}
   sliderOffset: {x: 0, y: 0, z: 0}
