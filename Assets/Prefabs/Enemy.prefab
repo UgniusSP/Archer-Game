@@ -246,12 +246,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 971465eefd0f7b74e911342687ea95d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
   maxHealth: 100
+  moveSpeed: 0
+  healthBar: {fileID: 299236831032159619}
+  sliderOffset: {x: 0, y: 1, z: 0}
+  healthBarSize: {x: 100, y: 20}
   attackSpeed: 0.5
   attackDamage: 15
-  healthBar: {fileID: 299236831032159619}
-  sliderOffset: {x: 0, y: 0, z: 0}
   circleCollider2D: {fileID: 5301271133607161429}
 --- !u!50 &7628126625896733416
 Rigidbody2D:

@@ -574,7 +574,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   progressBar: {fileID: 454113828}
-  maxPoints: 5
+  maxPoints: 1
 --- !u!1 &476349003
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using DefaultNamespace;
@@ -14,9 +15,22 @@ public abstract class Enemy : MonoBehaviour, IAttackable, IDamagable, IDieable, 
     [SerializeField] protected Vector3 sliderOffset;
     [SerializeField] protected float attackSpeed;
     [SerializeField] protected float attackDamage;
-    [SerializeField] protected CircleCollider2D circleCollider2D;
 
     protected float Health;
+    protected Transform Player;
+    protected Rigidbody2D Rigidbody2D;
+
+    public void Start()
+    {
+        Health = maxHealth;
+        healthBar.maxValue = maxHealth;
+        healthBar.value = Health;
+        
+        Player = GameObject.FindGameObjectWithTag("Player").transform;
+        
+        Rigidbody2D = GetComponent<Rigidbody2D>();
+        Rigidbody2D.isKinematic = true;
+    }
 
     public void TakeDamage(float damage)
     {
