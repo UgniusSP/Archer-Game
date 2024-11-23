@@ -3,24 +3,42 @@ using Utils;
 
 public class BossSpawner : MonoBehaviour
 {
-    
     [SerializeField] private GameObject bossPrefab;
     [SerializeField] private Transform spawnPoint;
-
-    private bool _bossSpawned = false;
     
+    private bool _bossSpawned = false;
+
     void Update()
     {
-        
-        if(!_bossSpawned && GameManager.Instance.GetPoints() >= ProgressBar.Instance.GetMaxPoints())
+        CheckBossSpawnCondition();
+    }
+
+    private void CheckBossSpawnCondition()
+    {
+        if (ShouldSpawnBoss())
         {
             SpawnBoss();
-            _bossSpawned = true;
+            MarkBossAsSpawned();
         }
     }
-    
+
+    private bool ShouldSpawnBoss()
+    {
+        return !_bossSpawned && HasReachedMaxPoints();
+    }
+
+    private bool HasReachedMaxPoints()
+    {
+        return GameManager.Instance.GetPoints() >= ProgressBar.Instance.GetMaxPoints();
+    }
+
     private void SpawnBoss()
     {
         Instantiate(bossPrefab, spawnPoint.position, spawnPoint.rotation);
+    }
+
+    private void MarkBossAsSpawned()
+    {
+        _bossSpawned = true;
     }
 }

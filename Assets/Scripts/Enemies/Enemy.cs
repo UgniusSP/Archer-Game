@@ -8,7 +8,6 @@ using Utils;
 
 public abstract class Enemy : MonoBehaviour, IAttackable, IDamagable, IDieable, IMovable
 {
-    
     [SerializeField] protected float maxHealth;
     [SerializeField] protected float moveSpeed;
     [SerializeField] protected Slider healthBar;
@@ -22,24 +21,67 @@ public abstract class Enemy : MonoBehaviour, IAttackable, IDamagable, IDieable, 
 
     public void Start()
     {
+        InitializeHealth();
+        InitializeHealthBar();
+        LocatePlayer();
+        InitializeRigidBody();
+    }
+
+    private void InitializeHealth()
+    {
         Health = maxHealth;
+    }
+
+    private void InitializeHealthBar()
+    {
         healthBar.maxValue = maxHealth;
         healthBar.value = Health;
-        
+    }
+
+    private void LocatePlayer()
+    {
         Player = GameObject.FindGameObjectWithTag("Player").transform;
-        
+    }
+
+    private void InitializeRigidBody()
+    {
         Rigidbody2D = GetComponent<Rigidbody2D>();
+        SetRigidBodyToKinematic();
+    }
+
+    private void SetRigidBodyToKinematic()
+    {
         Rigidbody2D.isKinematic = true;
     }
 
     public void TakeDamage(float damage)
     {
+        ReduceHealth(damage);
+        UpdateHealthBar();
+        CheckHealth();
+    }
+
+    private void ReduceHealth(float damage)
+    {
         Health -= damage;
+    }
+
+    private void UpdateHealthBar()
+    {
         healthBar.value = Health;
-        if (Health <= 0)
+    }
+
+    private void CheckHealth()
+    {
+        if (IsHealthDepleted())
         {
             Die();
         }
+    }
+
+    private bool IsHealthDepleted()
+    {
+        return Health <= 0;
     }
 
     public abstract void Die();
@@ -47,5 +89,4 @@ public abstract class Enemy : MonoBehaviour, IAttackable, IDamagable, IDieable, 
     public abstract void Attack(Collision2D other);
     
     public abstract void Move();
-    
 }

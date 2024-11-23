@@ -52,6 +52,11 @@ namespace Weapon
                     _rigidbody2D.velocity = Vector2.zero;
                     _rigidbody2D.isKinematic = true;
                     break;
+                
+                case "Armor" when other.gameObject.GetComponent<Armor>() != null:
+                    other.gameObject.GetComponent<Armor>().Die();
+                    Destroy(gameObject);
+                    break;
             }
         }
 
@@ -65,6 +70,5 @@ namespace Weapon
             rigidbody2D = _rigidbody2D;
             damage = _damage;
         }
-        
     }
 }

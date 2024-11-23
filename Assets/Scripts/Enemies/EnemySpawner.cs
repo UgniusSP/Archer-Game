@@ -11,22 +11,52 @@ namespace Enemies
 
         private void Start()
         {
+            BeginSpawning();
+        }
+
+        private void BeginSpawning()
+        {
             StartCoroutine(SpawnEnemies());
         }
 
         private IEnumerator SpawnEnemies()
         {
-            while (true)
+            while (ShouldContinueSpawning())
             {
-                yield return new WaitForSeconds(spawnInterval);
-                SpawnEnemy();
+                yield return WaitBeforeNextSpawn();
+                ExecuteSpawn();
             }
         }
 
-        private void SpawnEnemy()
+        private bool ShouldContinueSpawning()
         {
-            int spawnIndex = Random.Range(0, spawnPoints.Length);
-            Instantiate(enemyPrefab, spawnPoints[spawnIndex].position, spawnPoints[spawnIndex].rotation);
+            return true;
+        }
+
+        private WaitForSeconds WaitBeforeNextSpawn()
+        {
+            return new WaitForSeconds(spawnInterval);
+        }
+
+        private void ExecuteSpawn()
+        {
+            SpawnEnemyAtRandomLocation();
+        }
+
+        private void SpawnEnemyAtRandomLocation()
+        {
+            int spawnIndex = GetRandomSpawnIndex();
+            InstantiateEnemyAt(spawnPoints[spawnIndex]);
+        }
+
+        private int GetRandomSpawnIndex()
+        {
+            return Random.Range(0, spawnPoints.Length);
+        }
+
+        private void InstantiateEnemyAt(Transform spawnPoint)
+        {
+            Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
         }
     }
 }

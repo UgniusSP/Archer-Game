@@ -247,13 +247,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
-  moveSpeed: 0
+  moveSpeed: 3
   healthBar: {fileID: 299236831032159619}
   sliderOffset: {x: 0, y: 1, z: 0}
-  healthBarSize: {x: 100, y: 20}
   attackSpeed: 0.5
   attackDamage: 15
-  circleCollider2D: {fileID: 5301271133607161429}
+  armorPrefab: {fileID: 394851281245461692, guid: 6e35f303963000d4daf2faed178ee1b6, type: 3}
 --- !u!50 &7628126625896733416
 Rigidbody2D:
   serializedVersion: 4
