@@ -1,7 +1,6 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 namespace Utils
 {
@@ -11,15 +10,24 @@ namespace Utils
 
         [SerializeField] private TextMeshProUGUI score;
         private static int _points;
-    
+
+        public static int Points
+        {
+            get => _points;
+            private set
+            {
+                _points = value;
+                Instance?.UpdateScoreDisplay();
+            }
+        }
+
         static GameManager()
         {
             _points = 0;
         }
-        
+
         private void Awake()
         {
-        
             if (Instance == null)
             {
                 Instance = this;
@@ -31,29 +39,34 @@ namespace Utils
             }
         }
 
+        private void UpdateScoreDisplay()
+        {
+            score.text = _points.ToString();
+            ProgressBar.Instance.UpdateProgressBar(_points);
+        }
+
         public void UpdatePoints(int point)
         {
-            _points += point;
-            score.text = "" + _points;
-            
-            ProgressBar.Instance.UpdateProgressBar(_points);
-            
+            Points += point;
         }
 
         public void GameOver()
         {
-            _points = 0;
-            
-            SceneManager.LoadScene("GameOver");
+            Points = 0;
+            LoadScene("GameOver");
         }
 
         public void LevelComplete()
         {
-            _points = 0;
-            
-            SceneManager.LoadScene("LevelCompleted");
+            Points = 0;
+            LoadScene("LevelCompleted");
         }
-        
+
+        private void LoadScene(string sceneName)
+        {
+            SceneManager.LoadScene(sceneName);
+        }
+
         public int GetPoints()
         {
             return _points;

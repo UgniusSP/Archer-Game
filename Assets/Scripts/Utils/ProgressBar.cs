@@ -5,11 +5,11 @@ namespace Utils
 {
     public class ProgressBar : MonoBehaviour
     {
-        public static ProgressBar Instance;
-        
+        public static ProgressBar Instance { get; private set; }
+
         [SerializeField] private Slider progressBar;
         [SerializeField] private int maxPoints;
-        
+
         private void Awake()
         {
             if (Instance == null)
@@ -21,24 +21,34 @@ namespace Utils
             {
                 Destroy(gameObject);
             }
+
+            if (progressBar == null)
+            {
+                Debug.LogError("ProgressBar is not assigned in the inspector.");
+            }
         }
-        
-        public void Start()
+
+        private void Start()
         {
-            progressBar.maxValue = maxPoints;
-            progressBar.value = 0;
+            if (progressBar != null)
+            {
+                progressBar.maxValue = maxPoints;
+                progressBar.value = 0;
+            }
         }
-        
+
         public void UpdateProgressBar(int points)
         {
-            progressBar.value = points;
+            if (progressBar != null)
+            {
+                progressBar.value = Mathf.Clamp(points, 0, maxPoints); 
+            }
         }
 
         public int GetMaxPoints()
         {
             return maxPoints;
         }
-        
         
     }
 }

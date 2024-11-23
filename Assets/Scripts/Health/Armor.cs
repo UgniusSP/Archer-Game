@@ -10,37 +10,81 @@ namespace Health
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            if (collision.collider.CompareTag("Arrow"))
+            HandleCollision(collision);
+        }
+
+        private void HandleCollision(Collision2D collision)
+        {
+            if (IsArrowCollision(collision))
             {
-                Arrow arrow = collision.collider.GetComponent<Arrow>();
-                if (arrow != null)
-                {
-                    Player.Player player = FindObjectOfType<Player.Player>();
-                    if (player != null)
-                    {
-                        player.AddArmor(armorValue);
-                        player.UpdateArmorBar(armorValue);
-                        Die();
-                    }
-                }
-            } 
-            else if(collision.collider.CompareTag("Enemy"))
+                HandleArrowCollision(collision);
+            }
+            else if (IsEnemyCollision(collision))
             {
+                HandleEnemyCollision();
+            }
+            else if (IsPlayerCollision(collision))
+            {
+                HandlePlayerCollision(collision);
+            }
+        }
+
+        private bool IsArrowCollision(Collision2D collision)
+        {
+            return collision.collider.CompareTag("Arrow");
+        }
+
+        private bool IsEnemyCollision(Collision2D collision)
+        {
+            return collision.collider.CompareTag("Enemy");
+        }
+
+        private bool IsPlayerCollision(Collision2D collision)
+        {
+            return collision.collider.CompareTag("Player");
+        }
+
+        private void HandleArrowCollision(Collision2D collision)
+        {
+            Arrow arrow = collision.collider.GetComponent<Arrow>();
+            if (arrow != null)
+            {
+                ApplyArmorToPlayer();
                 Die();
             }
-            else if(collision.collider.CompareTag("Player"))
+        }
+
+        private void HandleEnemyCollision()
+        {
+            Die();
+        }
+
+        private void HandlePlayerCollision(Collision2D collision)
+        {
+            Player.Player player = collision.collider.GetComponent<Player.Player>();
+            if (player != null)
             {
-                Player.Player player = collision.collider.GetComponent<Player.Player>();
-                if (player != null)
-                {
-                    player.AddArmor(armorValue);
-                    player.UpdateArmorBar(armorValue);
-                    Die();
-                }
+                ApplyArmorToPlayer();
+                Die();
+            }
+        }
+
+        private void ApplyArmorToPlayer()
+        {
+            Player.Player player = FindObjectOfType<Player.Player>();
+            if (player != null)
+            {
+                player.AddArmor(armorValue);
+                player.UpdateArmorBar(armorValue);
             }
         }
 
         public void Die()
+        {
+            DestroyArmorObject();
+        }
+
+        private void DestroyArmorObject()
         {
             Destroy(gameObject);
         }

@@ -11,23 +11,43 @@ namespace Health
     
         private float _timeUntilSpawn;
         private Transform _player;
-    
+
         private void Awake()
         {
-            _player = GameObject.FindGameObjectWithTag("Player").transform;
+            InitializePlayer();
             SetTimeUntilSpawn();
         }
 
+        private void InitializePlayer()
+        {
+            _player = GameObject.FindGameObjectWithTag("Player").transform;
+        }
+
         void Update()
+        {
+            HandleHeartSpawning();
+        }
+
+        private void HandleHeartSpawning()
         {
             _timeUntilSpawn -= Time.deltaTime;
 
             if (_timeUntilSpawn <= 0)
             {
-                Vector3 spawnPosition = _player.position + (Vector3)(Random.insideUnitCircle * spawnRadius);
-                Instantiate(heartPrefab, spawnPosition, Quaternion.identity);
+                SpawnHeart();
                 SetTimeUntilSpawn();
             }
+        }
+
+        private void SpawnHeart()
+        {
+            Vector3 spawnPosition = CalculateSpawnPosition();
+            Instantiate(heartPrefab, spawnPosition, Quaternion.identity);
+        }
+
+        private Vector3 CalculateSpawnPosition()
+        {
+            return _player.position + (Vector3)(Random.insideUnitCircle * spawnRadius);
         }
 
         private void SetTimeUntilSpawn()
