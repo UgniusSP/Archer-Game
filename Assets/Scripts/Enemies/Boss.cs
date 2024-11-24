@@ -13,36 +13,72 @@ namespace Enemies
 
         public void Update()
         {
-            UpdateHealthBarPosition();
-            MoveTowardsPlayer();
+            try
+            {
+                UpdateHealthBarPosition();
+                MoveTowardsPlayer();
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError($"Error updating boss state: {ex.Message}");
+            }
         }
 
         private void UpdateHealthBarPosition()
         {
-            healthBar.transform.position = Camera.main.WorldToScreenPoint(transform.position + sliderOffset);
+            try
+            {
+                healthBar.transform.position = Camera.main.WorldToScreenPoint(transform.position + sliderOffset);
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError($"Error updating health bar position: {ex.Message}");
+            }
         }
-        
+
         private void OnCollisionStay2D(Collision2D other)
         {
-            Attack(other);
+            try
+            {
+                Attack(other);
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError($"Error during collision attack: {ex.Message}");
+            }
         }
 
         public override void Attack(Collision2D other)
         {
-            if (IsPlayer(other) && CanAttack())
+            try
             {
-                DealDamageToPlayer(other);
-                ResetAttackCooldown();
+                if (IsPlayer(other) && CanAttack())
+                {
+                    DealDamageToPlayer(other);
+                    ResetAttackCooldown();
+                }
+                else
+                {
+                    IncreaseAttackCooldown();
+                }
             }
-            else
+            catch (Exception ex)
             {
-                IncreaseAttackCooldown();
+                Debug.LogError($"Error executing attack: {ex.Message}");
             }
         }
 
         private bool IsPlayer(Collision2D other)
         {
-            return other.gameObject.CompareTag("Player");
+            try
+            {
+                return other.gameObject.CompareTag("Player");
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError($"Error checking if collider is player: {ex.Message}");
+                return false;
+            }
         }
 
         private bool CanAttack()
@@ -52,7 +88,14 @@ namespace Enemies
 
         private void DealDamageToPlayer(Collision2D other)
         {
-            other.gameObject.GetComponent<Player.Player>().TakeDamage(damage: attackDamage);
+            try
+            {
+                other.gameObject.GetComponent<Player.Player>().TakeDamage(damage: attackDamage);
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError($"Error dealing damage to player: {ex.Message}");
+            }
         }
 
         private void ResetAttackCooldown()
@@ -67,28 +110,63 @@ namespace Enemies
 
         public override void Move()
         {
-            MoveTowardsPlayer();
+            try
+            {
+                MoveTowardsPlayer();
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError($"Error moving boss: {ex.Message}");
+            }
         }
 
         private void MoveTowardsPlayer()
         {
-            transform.position = Vector2.MoveTowards(transform.position, Player.position, moveSpeed * Time.deltaTime);
+            try
+            {
+                transform.position = Vector2.MoveTowards(transform.position, Player.position, moveSpeed * Time.deltaTime);
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError($"Error moving towards player: {ex.Message}");
+            }
         }
 
         public override void Die()
         {
-            DestroyBoss();
-            NotifyLevelComplete();
+            try
+            {
+                DestroyBoss();
+                NotifyLevelComplete();
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError($"Error on boss death: {ex.Message}");
+            }
         }
 
         private void DestroyBoss()
         {
-            Destroy(gameObject);
+            try
+            {
+                Destroy(gameObject);
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError($"Error destroying boss object: {ex.Message}");
+            }
         }
 
         private void NotifyLevelComplete()
         {
-            GameManager.Instance.LevelComplete();
+            try
+            {
+                GameManager.Instance.LevelComplete();
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError($"Error notifying level complete: {ex.Message}");
+            }
         }
     }
 }
