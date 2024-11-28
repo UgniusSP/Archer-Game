@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Utils;
 
-public abstract class Enemy : MonoBehaviour, IAttackable, IDamagable, IDieable, IMovable
+public abstract class Enemy : MonoBehaviour, IAttackable, IDamagable, IDieable, IMovable, ICloneable
 {
     [SerializeField] protected float maxHealth;
     [SerializeField] protected float moveSpeed;
@@ -21,10 +21,17 @@ public abstract class Enemy : MonoBehaviour, IAttackable, IDamagable, IDieable, 
 
     public void Start()
     {
-        InitializeHealth();
-        InitializeHealthBar();
-        LocatePlayer();
-        InitializeRigidBody();
+        try
+        {
+            InitializeHealth();
+            InitializeHealthBar();
+            LocatePlayer();
+            InitializeRigidBody();
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError($"Error initializing enemy: {ex.Message}");
+        }
     }
 
     private void InitializeHealth()
@@ -34,19 +41,40 @@ public abstract class Enemy : MonoBehaviour, IAttackable, IDamagable, IDieable, 
 
     private void InitializeHealthBar()
     {
-        healthBar.maxValue = maxHealth;
-        healthBar.value = Health;
+        try
+        {
+            healthBar.maxValue = maxHealth;
+            healthBar.value = Health;
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError($"Error initializing health bar: {ex.Message}");
+        }
     }
 
     private void LocatePlayer()
     {
-        Player = GameObject.FindGameObjectWithTag("Player").transform;
+        try
+        {
+            Player = GameObject.FindGameObjectWithTag("Player").transform;
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError($"Error locating player: {ex.Message}");
+        }
     }
 
     private void InitializeRigidBody()
     {
-        Rigidbody2D = GetComponent<Rigidbody2D>();
-        SetRigidBodyToKinematic();
+        try
+        {
+            Rigidbody2D = GetComponent<Rigidbody2D>();
+            SetRigidBodyToKinematic();
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError($"Error initializing rigidbody: {ex.Message}");
+        }
     }
 
     private void SetRigidBodyToKinematic()
@@ -56,9 +84,16 @@ public abstract class Enemy : MonoBehaviour, IAttackable, IDamagable, IDieable, 
 
     public void TakeDamage(float damage)
     {
-        ReduceHealth(damage);
-        UpdateHealthBar();
-        CheckHealth();
+        try
+        {
+            ReduceHealth(damage);
+            UpdateHealthBar();
+            CheckHealth();
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError($"Error taking damage: {ex.Message}");
+        }
     }
 
     private void ReduceHealth(float damage)
@@ -68,14 +103,28 @@ public abstract class Enemy : MonoBehaviour, IAttackable, IDamagable, IDieable, 
 
     private void UpdateHealthBar()
     {
-        healthBar.value = Health;
+        try
+        {
+            healthBar.value = Health;
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError($"Error updating health bar: {ex.Message}");
+        }
     }
 
     private void CheckHealth()
     {
-        if (IsHealthDepleted())
+        try
         {
-            Die();
+            if (IsHealthDepleted())
+            {
+                Die();
+            }
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError($"Error checking health: {ex.Message}");
         }
     }
 
@@ -85,8 +134,28 @@ public abstract class Enemy : MonoBehaviour, IAttackable, IDamagable, IDieable, 
     }
 
     public abstract void Die();
-    
+
     public abstract void Attack(Collision2D other);
-    
+
     public abstract void Move();
+
+    public void Deconstruct(out float currentHealth, out float maxHealth, out float attackDamage)
+    {
+        currentHealth = Health;
+        maxHealth = this.maxHealth;
+        attackDamage = this.attackDamage;
+    }
+
+    public object Clone()
+    {
+        try
+        {
+            return this.MemberwiseClone();
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError($"Error cloning enemy: {ex.Message}");
+            return null;
+        }
+    }
 }

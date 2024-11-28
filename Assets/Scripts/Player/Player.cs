@@ -275,19 +275,6 @@ namespace Player
             }
         }
 
-        public void UpdateArmorBar(float armorValue)
-        {
-            try
-            {
-                armorBar.maxValue = maxArmor;
-                armorBar.value = armorValue;
-            }
-            catch (Exception ex)
-            {
-                Debug.LogError($"Error updating armor bar: {ex.Message}");
-            }
-        }
-
         public void Deconstruct(out Rigidbody2D rigidbody2D, out float health, out float armor)
         {
             rigidbody2D = this.rigidbody2D;

@@ -71,12 +71,17 @@ namespace Health
 
         private void ApplyArmorToPlayer()
         {
-            Player.Player player = FindObjectOfType<Player.Player>();
+            Player.Player player = GetPlayer();
             if (player != null)
             {
                 player.AddArmor(armorValue);
-                player.UpdateArmorBar(armorValue);
             }
+        }
+        
+        private Player.Player GetPlayer()
+        {
+            GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
+            return playerObject != null ? playerObject.GetComponent<Player.Player>() : null;
         }
 
         public void Die()
